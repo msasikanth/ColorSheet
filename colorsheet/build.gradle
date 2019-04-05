@@ -20,16 +20,39 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = "color-sheet"
+    bintrayName = "dev.sasikanth.colorsheet"
+
+    libraryName = "colorsheet"
+
+    publishedGroupId = "dev.sasikanth.colorsheet"
+    artifact = "colorsheet"
+
+    libraryDescription = ''
+
+    siteUrl = 'https://github.com/msasikanth/ColorSheet'
+    gitUrl = 'https://github.com/msasikanth/ColorSheet.git'
+
+    developerId = 'msasikanth'
+    developerName = 'Sasikanth Miriyampalli'
+    developerEmail = 'sasikanthmiriyampalli@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 28
-
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName versions.libraryVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -56,4 +79,11 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+//Add these lines to publish library to bintray. This is the readymade scripts made by github user nuuneoi to make uploading to bintray easy.
+//Place it at the end of the file
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: '../install.gradle'
+    apply from: '../bintrayconfig.gradle'
 }
