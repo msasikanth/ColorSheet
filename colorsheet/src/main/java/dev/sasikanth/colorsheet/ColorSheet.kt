@@ -20,6 +20,7 @@
 package dev.sasikanth.colorsheet
 
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,19 +52,14 @@ class ColorSheet : BottomSheetDialogFragment() {
     }
 
     private var cornerRadius: Float = 0f
-
     private lateinit var colorAdapter: ColorAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
 
     override fun getTheme(): Int {
         return Theme.inferTheme(requireContext()).styleRes
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (savedInstanceState != null) dismiss()
         return inflater.inflate(R.layout.color_sheet, container, false)
     }
 

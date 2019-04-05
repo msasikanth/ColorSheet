@@ -23,6 +23,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import dev.sasikanth.colorsheet.ColorSelected
 import dev.sasikanth.colorsheet.ColorSheet
 import kotlinx.android.synthetic.main.activity_main.colorBackground
 import kotlinx.android.synthetic.main.activity_main.colorSelectedText
@@ -30,13 +31,17 @@ import kotlinx.android.synthetic.main.activity_main.colorSheet
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        private const val COLOR_SELECTED = "selectedColor"
+    }
+
     var selectedColor: Int = ColorSheet.NO_COLOR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        selectedColor = savedInstanceState?.getInt("colorSelected") ?: ColorSheet.NO_COLOR
+        selectedColor = savedInstanceState?.getInt(COLOR_SELECTED) ?: ColorSheet.NO_COLOR
         setColor(selectedColor)
 
         val colors = resources.getIntArray(R.array.noteColors)
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("colorSelected", selectedColor)
+        outState.putInt(COLOR_SELECTED, selectedColor)
     }
 
     private fun setColor(color: Int) {
