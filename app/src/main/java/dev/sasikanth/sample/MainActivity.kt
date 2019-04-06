@@ -21,10 +21,11 @@ package dev.sasikanth.sample
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import dev.sasikanth.colorsheet.ColorSelected
 import dev.sasikanth.colorsheet.ColorSheet
+import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.activity_main.colorBackground
 import kotlinx.android.synthetic.main.activity_main.colorSelectedText
 import kotlinx.android.synthetic.main.activity_main.colorSheet
@@ -46,14 +47,15 @@ class MainActivity : AppCompatActivity() {
 
         val colors = resources.getIntArray(R.array.noteColors)
         colorSheet.setOnClickListener {
-            ColorSheet().colorPicker(
-                colors,
-                selectedColor = selectedColor,
-                noColorOption = true,
-                colorSelected = { color ->
-                    selectedColor = color
-                    setColor(selectedColor)
-                })
+            ColorSheet().cornerRadius(8)
+                .colorPicker(
+                    colors = colors,
+                    selectedColor = selectedColor,
+                    noColorOption = true,
+                    listener = { color ->
+                        selectedColor = color
+                        setColor(selectedColor)
+                    })
                 .show(supportFragmentManager)
         }
     }
@@ -63,16 +65,13 @@ class MainActivity : AppCompatActivity() {
         outState.putInt(COLOR_SELECTED, selectedColor)
     }
 
-    private fun setColor(color: Int) {
+    private fun setColor(@ColorInt color: Int) {
         if (color != ColorSheet.NO_COLOR) {
-            val hexColor = "#${Integer.toHexString(color).toUpperCase()}"
-
             colorBackground.setBackgroundColor(color)
-            colorSelectedText.text = hexColor
+            colorSelectedText.text = ColorSheetUtils.colorToHex(color)
             colorSelectedText.setTextColor(Color.BLACK)
         } else {
             val primaryColor = ContextCompat.getColor(this, R.color.colorPrimary)
-
             colorBackground.setBackgroundColor(primaryColor)
             colorSelectedText.text = getString(R.string.no_color)
             colorSelectedText.setTextColor(Color.WHITE)

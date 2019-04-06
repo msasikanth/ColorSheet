@@ -28,29 +28,25 @@ import androidx.annotation.RestrictTo
 import androidx.core.content.ContextCompat
 
 /**
- * gotten from [https://github.com/afollestad/material-dialogs/blob/master/core/src/main/java/com/afollestad/materialdialogs/utils/MDUtil.kt]
+ * Get color
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @ColorInt
-fun resolveColor(
+internal fun resolveColor(context: Context, @ColorRes colorRes: Int): Int {
+    return ContextCompat.getColor(context, colorRes)
+}
+
+/**
+ * Resolve a attribute value and return color
+ */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@ColorInt
+internal fun resolveColorAttr(
     context: Context,
-    @ColorRes res: Int? = null,
-    @AttrRes attr: Int? = null,
-    fallback: (() -> Int)? = null
+    @AttrRes attrRes: Int
 ): Int {
-    if (attr != null) {
-        val a = context.theme.obtainStyledAttributes(intArrayOf(attr))
-        try {
-            val result = a.getColor(0, 0)
-            if (result == 0 && fallback != null) {
-                return fallback()
-            }
-            return result
-        } finally {
-            a.recycle()
-        }
-    }
-    return ContextCompat.getColor(context, res ?: 0)
+    val a = context.theme.obtainStyledAttributes(intArrayOf(attrRes))
+    return a.getColor(0, 0)
 }
 
 /**
