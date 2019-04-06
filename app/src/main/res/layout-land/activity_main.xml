@@ -53,7 +53,7 @@
                 android:background="@drawable/ic_round_rectangle"
                 app:layout_constraintTop_toTopOf="@id/colorBackground">
 
-                <dev.sasikanth.colorsheet.widgets.BaselineGridTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/colorSelectedText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

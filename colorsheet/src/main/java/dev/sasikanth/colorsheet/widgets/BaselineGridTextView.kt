@@ -21,10 +21,11 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
+import androidx.annotation.RestrictTo
 import androidx.appcompat.widget.AppCompatTextView
 import dev.sasikanth.colorsheet.R
 
-
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class BaselineGridTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
