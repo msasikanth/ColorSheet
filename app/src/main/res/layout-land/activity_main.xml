@@ -61,6 +61,7 @@
                     android:paddingEnd="24dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
+                    android:textColor="@android:color/white"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:text="#FFFFFF" />
 

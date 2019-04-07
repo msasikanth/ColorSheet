@@ -19,39 +19,48 @@
 
 package dev.sasikanth.sample
 
-import android.graphics.Color
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import dev.sasikanth.colorsheet.ColorSheet
 import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.activity_main.colorBackground
 import kotlinx.android.synthetic.main.activity_main.colorSelectedText
 import kotlinx.android.synthetic.main.activity_main.colorSheet
+import kotlinx.android.synthetic.main.activity_main.toolbar
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val COLOR_SELECTED = "selectedColor"
+        private const val NO_COLOR_OPTION = "noColorOption"
     }
 
-    var selectedColor: Int = ColorSheet.NO_COLOR
+    private var selectedColor: Int = ColorSheet.NO_COLOR
+    private var noColorOption = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
-        selectedColor = savedInstanceState?.getInt(COLOR_SELECTED) ?: ColorSheet.NO_COLOR
+        val colors = resources.getIntArray(R.array.colors)
+        selectedColor = savedInstanceState?.getInt(COLOR_SELECTED) ?: colors.first()
         setColor(selectedColor)
 
-        val colors = resources.getIntArray(R.array.noteColors)
+        noColorOption = savedInstanceState?.getBoolean(NO_COLOR_OPTION) ?: false
+
         colorSheet.setOnClickListener {
             ColorSheet().cornerRadius(8)
                 .colorPicker(
                     colors = colors,
+                    noColorOption = noColorOption,
                     selectedColor = selectedColor,
-                    noColorOption = true,
                     listener = { color ->
                         selectedColor = color
                         setColor(selectedColor)
@@ -60,22 +69,52 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                menu?.findItem(R.id.dark_mode)?.isChecked = false
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                menu?.findItem(R.id.dark_mode)?.isChecked = true
+            }
+        }
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.dark_mode -> {
+                if (item.isChecked) {
+                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                } else {
+                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+                }
+            }
+            R.id.no_color_option -> {
+                noColorOption = !noColorOption
+                item.isChecked = noColorOption
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(COLOR_SELECTED, selectedColor)
+        outState.putBoolean(NO_COLOR_OPTION, noColorOption)
     }
 
     private fun setColor(@ColorInt color: Int) {
         if (color != ColorSheet.NO_COLOR) {
             colorBackground.setBackgroundColor(color)
             colorSelectedText.text = ColorSheetUtils.colorToHex(color)
-            colorSelectedText.setTextColor(Color.BLACK)
         } else {
             val primaryColor = ContextCompat.getColor(this, R.color.colorPrimary)
             colorBackground.setBackgroundColor(primaryColor)
             colorSelectedText.text = getString(R.string.no_color)
-            colorSelectedText.setTextColor(Color.WHITE)
         }
     }
-
 }

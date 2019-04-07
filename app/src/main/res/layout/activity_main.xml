@@ -62,6 +62,7 @@
                     android:paddingEnd="24dp"
                     android:paddingBottom="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@android:color/white"
                     tools:text="#FFFFFF" />
 
             </FrameLayout>
@@ -72,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:textColor="@android:color/black"
+                android:textColor="?android:attr/textColorPrimary"
                 app:cornerRadius="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,5 +83,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:titleTextColor="@android:color/white"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

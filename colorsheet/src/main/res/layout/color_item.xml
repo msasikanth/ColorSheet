@@ -35,6 +35,8 @@
         android:paddingTop="12dp"
         android:paddingEnd="8dp"
         android:paddingBottom="12dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"

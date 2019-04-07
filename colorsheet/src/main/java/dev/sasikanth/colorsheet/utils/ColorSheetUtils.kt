@@ -32,5 +32,4 @@ object ColorSheetUtils {
     fun colorToHex(@ColorInt color: Int): String {
         return "#${Integer.toHexString(color).toUpperCase()}"
     }
-
 }

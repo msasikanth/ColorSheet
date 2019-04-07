@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~   ColorSheet
   ~
   ~   Copyright (c) 2019. Sasikanth Miriyampalli
@@ -17,9 +17,16 @@
   ~
   -->
 
-<resources>
-    <string name="app_name">Color Sheet</string>
-    <string name="no_color">Default Color</string>
-    <string name="dark_mode">Dark Mode</string>
-    <string name="enable_no_color">No color option</string>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dark_mode"
+        android:checkable="true"
+        android:title="@string/dark_mode" />
+
+    <item
+        android:id="@+id/no_color_option"
+        android:checkable="true"
+        android:title="@string/enable_no_color" />
+
+</menu>

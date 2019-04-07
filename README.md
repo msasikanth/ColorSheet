@@ -2,44 +2,85 @@
 
 A color picker bottom sheet
 
-<img width="300" alt="portfolio_view" src="https://github.com/msasikanth/ColorSheet/blob/master/art/screenshot.png?raw=true">
-
 ```
   TODO: Maven upload pending
 ```
 
 ## Usage
 
-### Color sheet
+**Default color sheet, it will show grid of colors**
 
-Default color sheet, it will show grid of colors.<br>
-You can pass selectedColor (ColorInt) to mark the color as selected in the sheet
+<img width="300" alt="portfolio_view" src="./art/color_sheet.png">
+<br>
 
 ```
 ColorSheet().colorPicker(
     colors = colors,
-    selectedColor = selectedColor,
     listener = { color ->
-        // Handle Color
+        // Handle colors
     })
     .show(supportFragmentManager)
 ````
+---
 
-### Color sheet with "no color" option
+**Color sheet with "no color" option**
 
-With this you will get a no color option at start, when user selects this it will return <br>
-*ColorSheet.NO_COLOR*.
+<img width="300" alt="portfolio_view" src="./art/color_sheet_no_color.png">
+<br>
+<br>
 
 ```
 ColorSheet().colorPicker(
     colors = colors,
-    selectedColor = selectedColor,
     noColorOption = true,
     listener = { color ->
         // Handle Color
     })
     .show(supportFragmentManager)
 ````
+With this you will get a no color option at start, when user selects this it will return <br>
+**ColorSheet.NO_COLOR**.
+
+---
+
+To mark the color as selected in color sheet, specify selectedColor in colorPicker
+
+```
+ColorSheet().colorPicker(
+    colors = colors,
+    selectedColor = color,
+    listener = { color ->
+        // Handle Color
+    })
+    .show(supportFragmentManager)
+```
+
+---
+
+### Misc
+
+**Corner radius**<br>
+Default corner radius is 4dp. You can set your own corner radius like this
+```
+ColorSheet().cornerRadius(8)
+```
+<br>
+
+**Color to Hex string**
+```
+ColorSheetUtils.colorToHex(color)
+```
+<br>
+
+**Sheet title textAppearance**
+```
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorSheetTitleFont">@font/font</item>
+        <item name="colorSheetTitleSize">@dimen/text_size</item> // in sp
+        <item name="colorSheetTitleLineHeightHint">@dimen/line_height_hint</item> // in sp
+        <item name="colorSheetTitleLetterSpacing">0</item>
+    </style>
+```
 
 ### License
 

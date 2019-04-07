@@ -20,7 +20,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
@@ -30,6 +30,11 @@
         <item name="colorSheetTitleLineHeightHint">32sp</item>
         <item name="colorSheetTitleLetterSpacing">0</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="actionOverflowButtonStyle">@style/AppTheme.Overflow</item>
+    </style>
+
+    <style name="AppTheme.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">#FFFFFF</item>
     </style>
 
 </resources>

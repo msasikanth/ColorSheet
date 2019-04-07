@@ -24,6 +24,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.fragment.app.FragmentManager
@@ -35,6 +36,7 @@ import dev.sasikanth.colorsheet.utils.px
 import dev.sasikanth.colorsheet.utils.resolveColor
 import kotlinx.android.synthetic.main.color_sheet.colorSheetClose
 import kotlinx.android.synthetic.main.color_sheet.colorSheetList
+import com.google.android.material.R as materialR
 
 /**
  * Listener for color picker
@@ -52,8 +54,8 @@ class ColorSheet : BottomSheetDialogFragment() {
         const val NO_COLOR = -1
     }
 
-    private var cornerRadius: Float = 0f
-    private lateinit var colorAdapter: ColorAdapter
+    private var sheetCorners: Float = 0f
+    private var colorAdapter: ColorAdapter? = null
 
     override fun getTheme(): Int {
         return Theme.inferTheme(requireContext()).styleRes
@@ -66,41 +68,43 @@ class ColorSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.viewTreeObserver.addOnGlobalLayoutListener {
-            val dialog = dialog as BottomSheetDialog?
-            val bottomSheet = dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-            val behavior = BottomSheetBehavior.from(bottomSheet)
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            behavior.peekHeight = 0
-            behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                }
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                        dismiss()
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                val dialog = dialog as BottomSheetDialog?
+                val bottomSheet = dialog?.findViewById<FrameLayout>(materialR.id.design_bottom_sheet)
+                val behavior = BottomSheetBehavior.from(bottomSheet)
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                behavior.peekHeight = 0
+                behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     }
-                }
-            })
+
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                            dismiss()
+                        }
+                    }
+                })
+            }
+        })
+
+        if (sheetCorners == 0f) {
+            sheetCorners = resources.getDimension(R.dimen.default_dialog_radius)
         }
 
-        if (cornerRadius == 0f) {
-            cornerRadius = resources.getDimension(R.dimen.default_dialog_radius)
+        val gradientDrawable = GradientDrawable().apply {
+            if (Theme.inferTheme(requireContext()) == Theme.LIGHT) {
+                setColor(resolveColor(requireContext(), colorRes = R.color.dialogPrimary))
+            } else {
+                setColor(resolveColor(requireContext(), colorRes = R.color.dialogDarkPrimary))
+            }
+
+            cornerRadii = floatArrayOf(sheetCorners, sheetCorners, sheetCorners, sheetCorners, 0f, 0f, 0f, 0f)
         }
-
-        val gradientDrawable = GradientDrawable()
-        if (Theme.inferTheme(requireContext()) == Theme.LIGHT) {
-            gradientDrawable.setColor(resolveColor(requireContext(), colorRes = R.color.dialogPrimary))
-        } else {
-            gradientDrawable.setColor(resolveColor(requireContext(), colorRes = R.color.dialogDarkPrimary))
-        }
-
-        gradientDrawable.cornerRadii =
-            floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, 0f, 0f, 0f, 0f)
-
         view.background = gradientDrawable
-        if (this::colorAdapter.isInitialized) {
+
+        if (colorAdapter != null) {
             colorSheetList.adapter = colorAdapter
         }
 
@@ -109,13 +113,18 @@ class ColorSheet : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        colorAdapter = null
+    }
+
     /**
      * Set corner radius of sheet top left and right corners.
      *
      * @param radius: Takes a float value
      */
     fun cornerRadius(radius: Int): ColorSheet {
-        this.cornerRadius = radius.toFloat().px
+        this.sheetCorners = radius.toFloat().px
         return this
     }
 
@@ -123,13 +132,14 @@ class ColorSheet : BottomSheetDialogFragment() {
      * Config color picker
      *
      * @param colors: Array of colors to show in color picker
-     * @param selectedColor: Pass in the selected color from colors list, default value is [NO_COLOR]
+     * @param selectedColor: Pass in the selected color from colors list, default value is null. You can pass [NO_COLOR]
+     * to select noColorOption in the sheet.
      * @param noColorOption: Gives a option to set the [selectedColor] to [NO_COLOR]
      * @param listener: [ColorPickerListener]
      */
     fun colorPicker(
         colors: IntArray,
-        @ColorInt selectedColor: Int = NO_COLOR,
+        @ColorInt selectedColor: Int? = null,
         noColorOption: Boolean = false,
         listener: ColorPickerListener
     ): ColorSheet {
@@ -143,5 +153,4 @@ class ColorSheet : BottomSheetDialogFragment() {
     fun show(fragmentManager: FragmentManager) {
         this.show(fragmentManager, TAG)
     }
-
 }

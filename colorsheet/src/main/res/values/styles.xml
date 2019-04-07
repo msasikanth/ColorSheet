@@ -42,6 +42,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="dialogPrimary">@color/dialogDarkPrimary</item>
         <item name="dialogPrimaryVariant">@color/dialogDarkPrimaryVariant</item>
+        <item name="android:navigationBarColor">@color/dialogDarkPrimary</item>
     </style>
 
 </resources>

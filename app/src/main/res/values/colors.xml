@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~   ColorSheet
   ~
   ~   Copyright (c) 2019. Sasikanth Miriyampalli
@@ -25,19 +24,14 @@
     <color name="colorSecondary">#03DAC6</color>
     <color name="colorSecondaryVariant">#018786</color>
 
-
-    <array name="noteColors">
-        <item>#FFE066</item>
-        <item>#FFBA59</item>
-        <item>#FF8C8C</item>
-        <item>#FF99E5</item>
-        <item>#C3A6FF</item>
-        <item>#9FBCF5</item>
-        <item>#8CE2FF</item>
-        <item>#87F5B5</item>
-        <item>#BCF593</item>
-        <item>#E2F587</item>
-        <item>#D9BCAD</item>
+    <array name="colors">
+        <item>#F44336</item>
+        <item>#E91E63</item>
+        <item>#3F51B5</item>
+        <item>#1E88E5</item>
+        <item>#F4511E</item>
+        <item>#546E7A</item>
+        <item>#43A047</item>
     </array>
 
 </resources>
