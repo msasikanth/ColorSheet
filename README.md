@@ -27,7 +27,6 @@ ColorSheet().colorPicker(
 
 <img width="300" alt="portfolio_view" src="./art/color_sheet_no_color.png">
 <br>
-<br>
 
 ```
 ColorSheet().colorPicker(
