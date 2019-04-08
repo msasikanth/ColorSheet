@@ -1,13 +1,13 @@
 # ColorSheet
-
 A color picker bottom sheet
 
+[ ![Download](https://api.bintray.com/packages/sasikanthmiriyampalli/maven/color-sheet/images/download.svg?version=1.0.0) ](https://bintray.com/sasikanthmiriyampalli/maven/color-sheet/1.0.0/link)
+
 ```
-  TODO: Maven upload pending
+implementation "dev.sasikanth:colorsheet:1.0.0"
 ```
 
 ## Usage
-
 **Default color sheet, it will show grid of colors**
 
 <img width="300" alt="portfolio_view" src="./art/color_sheet.png">
@@ -17,10 +17,11 @@ A color picker bottom sheet
 ColorSheet().colorPicker(
     colors = colors,
     listener = { color ->
-        // Handle colors
+        // Handle color
     })
     .show(supportFragmentManager)
-````
+```
+
 ---
 
 **Color sheet with "no color" option**
@@ -33,13 +34,13 @@ ColorSheet().colorPicker(
     colors = colors,
     noColorOption = true,
     listener = { color ->
-        // Handle Color
+        // Handle color
     })
     .show(supportFragmentManager)
-````
+```
 With this you will get a no color option at start, when user selects this it will return **ColorSheet.NO_COLOR**.
 
----
+- - - -
 
 To mark the color as selected in color sheet, specify selectedColor in colorPicker
 
@@ -48,27 +49,23 @@ ColorSheet().colorPicker(
     colors = colors,
     selectedColor = color,
     listener = { color ->
-        // Handle Color
+        // Handle color
     })
     .show(supportFragmentManager)
 ```
 
----
-
+- - - -
 ### Misc
-
-**Corner radius**<br>
+**Corner radius**
 Default corner radius is 4dp. You can set your own corner radius like this
 ```
 ColorSheet().cornerRadius(8)
 ```
-<br>
 
 **Color to Hex string**
 ```
 ColorSheetUtils.colorToHex(color)
 ```
-<br>
 
 **Sheet title textAppearance**
 ```
@@ -96,4 +93,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
