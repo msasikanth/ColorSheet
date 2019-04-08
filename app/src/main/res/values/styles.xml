@@ -21,12 +21,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
         <item name="colorAccent">@color/colorSecondary</item>
         <item name="colorSheetTitleFont">@font/manrope_bold</item>
-        <item name="colorSheetTitleSize">20sp</item>
         <item name="colorSheetTitleLineHeightHint">32sp</item>
         <item name="colorSheetTitleLetterSpacing">0</item>
         <item name="android:windowTranslucentStatus">true</item>

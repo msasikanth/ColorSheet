@@ -20,6 +20,7 @@
 package dev.sasikanth.colorsheet
 
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
+import androidx.annotation.StyleRes
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -36,6 +38,7 @@ import dev.sasikanth.colorsheet.utils.px
 import dev.sasikanth.colorsheet.utils.resolveColor
 import kotlinx.android.synthetic.main.color_sheet.colorSheetClose
 import kotlinx.android.synthetic.main.color_sheet.colorSheetList
+import kotlinx.android.synthetic.main.color_sheet.sheetTitle
 import com.google.android.material.R as materialR
 
 /**
@@ -61,18 +64,24 @@ class ColorSheet : BottomSheetDialogFragment() {
         return Theme.inferTheme(requireContext()).styleRes
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         if (savedInstanceState != null) dismiss()
         return inflater.inflate(R.layout.color_sheet, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        view.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 val dialog = dialog as BottomSheetDialog?
-                val bottomSheet = dialog?.findViewById<FrameLayout>(materialR.id.design_bottom_sheet)
+                val bottomSheet =
+                    dialog?.findViewById<FrameLayout>(materialR.id.design_bottom_sheet)
                 val behavior = BottomSheetBehavior.from(bottomSheet)
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 behavior.peekHeight = 0
@@ -100,7 +109,8 @@ class ColorSheet : BottomSheetDialogFragment() {
                 setColor(resolveColor(requireContext(), colorRes = R.color.dialogDarkPrimary))
             }
 
-            cornerRadii = floatArrayOf(sheetCorners, sheetCorners, sheetCorners, sheetCorners, 0f, 0f, 0f, 0f)
+            cornerRadii =
+                floatArrayOf(sheetCorners, sheetCorners, sheetCorners, sheetCorners, 0f, 0f, 0f, 0f)
         }
         view.background = gradientDrawable
 
@@ -132,7 +142,7 @@ class ColorSheet : BottomSheetDialogFragment() {
      * Config color picker
      *
      * @param colors: Array of colors to show in color picker
-     * @param selectedColor: Pass in the selected color from colors list, default value is null. You can pass [NO_COLOR]
+     * @param selectedColor: Pass in the selected color from colors list, default value is null. You can pass [ColorSheet.NO_COLOR]
      * to select noColorOption in the sheet.
      * @param noColorOption: Gives a option to set the [selectedColor] to [NO_COLOR]
      * @param listener: [ColorPickerListener]

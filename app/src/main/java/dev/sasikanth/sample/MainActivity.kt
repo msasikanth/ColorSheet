@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 menu?.findItem(R.id.dark_mode)?.isChecked = true
             }
         }
-
+        menu?.findItem(R.id.no_color_option)?.isChecked = noColorOption
         return super.onCreateOptionsMenu(menu)
     }
 

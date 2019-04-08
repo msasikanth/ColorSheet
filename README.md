@@ -37,8 +37,7 @@ ColorSheet().colorPicker(
     })
     .show(supportFragmentManager)
 ````
-With this you will get a no color option at start, when user selects this it will return <br>
-**ColorSheet.NO_COLOR**.
+With this you will get a no color option at start, when user selects this it will return **ColorSheet.NO_COLOR**.
 
 ---
 
@@ -73,9 +72,8 @@ ColorSheetUtils.colorToHex(color)
 
 **Sheet title textAppearance**
 ```
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <item name="colorSheetTitleFont">@font/font</item>
-        <item name="colorSheetTitleSize">@dimen/text_size</item> // in sp
         <item name="colorSheetTitleLineHeightHint">@dimen/line_height_hint</item> // in sp
         <item name="colorSheetTitleLetterSpacing">0</item>
     </style>

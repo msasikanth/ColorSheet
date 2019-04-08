@@ -59,7 +59,8 @@ internal class ColorAdapter(
         holder.bindView()
     }
 
-    inner class ColorItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ColorItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         private val circle by lazy {
             ContextCompat.getDrawable(itemView.context, R.drawable.ic_circle)

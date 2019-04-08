@@ -84,4 +84,11 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:titleTextColor="@android:color/white"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

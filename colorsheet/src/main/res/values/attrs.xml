@@ -25,6 +25,7 @@
         <attr name="lineHeightMultiplierHint" format="float" />
         <attr name="lineHeightHint" />
         <attr name="maxLinesByHeight" format="boolean" />
+        <attr name="letterSpacing" format="float"/>
     </declare-styleable>
 
 </resources>

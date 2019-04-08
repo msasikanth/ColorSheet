@@ -26,9 +26,11 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:clipChildren="true"
+        android:clipToPadding="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -40,9 +42,13 @@
             android:focusable="true"
             android:padding="16dp"
             android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-        <dev.sasikanth.colorsheet.widgets.BaselineGridTextView
+        <dev.sasikanth.colorsheet.widgets.ColorSheetTitle
+            android:id="@+id/sheetTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -51,13 +57,13 @@
             android:paddingEnd="16dp"
             android:text="@string/pick_a_color"
             android:textAlignment="center"
-            android:textSize="?attr/colorSheetTitleSize"
-            app:lineHeightHint="?attr/colorSheetTitleLineHeightHint"
-            android:letterSpacing="?attr/colorSheetTitleLetterSpacing"
-            app:fontFamily="?attr/colorSheetTitleFont"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            app:layout_constraintVertical_bias="0"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintStart_toEndOf="@id/colorSheetClose"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"

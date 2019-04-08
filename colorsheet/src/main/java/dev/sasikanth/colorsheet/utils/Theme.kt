@@ -16,10 +16,10 @@
 
 package dev.sasikanth.colorsheet.utils
 
-import android.R.attr
 import android.content.Context
 import androidx.annotation.StyleRes
 import dev.sasikanth.colorsheet.R
+import android.R.attr as androidAttr
 
 internal enum class Theme(@StyleRes val styleRes: Int) {
 
@@ -28,7 +28,10 @@ internal enum class Theme(@StyleRes val styleRes: Int) {
 
     companion object {
         fun inferTheme(context: Context): Theme {
-            val isPrimaryDark = resolveColorAttr(context = context, attrRes = attr.textColorPrimary).isColorDark()
+            val isPrimaryDark = resolveColorAttr(
+                context = context,
+                attrRes = androidAttr.textColorPrimary
+            ).isColorDark()
             return if (isPrimaryDark) LIGHT else DARK
         }
     }

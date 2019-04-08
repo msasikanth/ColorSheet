@@ -18,7 +18,7 @@
 package dev.sasikanth.colorsheet.widgets
 
 import android.content.Context
-import android.os.Build
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.annotation.RestrictTo
@@ -26,7 +26,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import dev.sasikanth.colorsheet.R
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-class BaselineGridTextView @JvmOverloads constructor(
+open class BaselineGridTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = android.R.attr.textViewStyle
@@ -44,13 +44,12 @@ class BaselineGridTextView @JvmOverloads constructor(
         val a = context.obtainStyledAttributes(
             attrs, R.styleable.BaselineGridTextView, defStyleAttr, 0
         )
-
         lineHeightMultiplierHint =
             a.getFloat(R.styleable.BaselineGridTextView_lineHeightMultiplierHint, 1f)
         lineHeightHint =
             a.getDimensionPixelSize(R.styleable.BaselineGridTextView_lineHeightHint, 0).toFloat()
         maxLinesByHeight = a.getBoolean(R.styleable.BaselineGridTextView_maxLinesByHeight, false)
-        a.recycle()
+        a?.recycle()
 
         fourDip = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics
@@ -128,12 +127,9 @@ class BaselineGridTextView @JvmOverloads constructor(
         maxLines = completeLines
     }
 
-    @Suppress("DEPRECATION")
-    override fun setTextAppearance(resId: Int) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            super.setTextAppearance(context, resId)
-        } else {
-            super.setTextAppearance(resId)
-        }
+    fun setLineHeightHint(lineHeightHint: Float) {
+        this.lineHeightHint = lineHeightHint
+        computeLineHeight()
     }
+
 }
