@@ -4,7 +4,7 @@ A color picker bottom sheet
 [ ![Download](https://api.bintray.com/packages/sasikanthmiriyampalli/maven/color-sheet/images/download.svg?version=1.0.0) ](https://bintray.com/sasikanthmiriyampalli/maven/color-sheet/1.0.0/link)
 
 ```
-implementation "dev.sasikanth:colorsheet:1.0.0"
+implementation "dev.sasikanth:colorsheet:1.0.1"
 ```
 
 ## Usage
@@ -59,7 +59,7 @@ ColorSheet().colorPicker(
 **Corner radius**
 Default corner radius is 4dp. You can set your own corner radius like this
 ```
-ColorSheet().cornerRadius(8)
+ColorSheet().cornerRadius(radius)
 ```
 
 **Color to Hex string**

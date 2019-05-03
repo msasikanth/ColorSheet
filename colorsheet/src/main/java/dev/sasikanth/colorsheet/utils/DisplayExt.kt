@@ -21,5 +21,5 @@ package dev.sasikanth.colorsheet.utils
 
 import android.content.res.Resources
 
-internal val Float.px: Float
+internal val Float.dp: Float
     get() = (this * Resources.getSystem().displayMetrics.density)

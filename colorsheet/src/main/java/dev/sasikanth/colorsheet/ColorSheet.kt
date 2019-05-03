@@ -20,7 +20,6 @@
 package dev.sasikanth.colorsheet
 
 import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,17 +27,14 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
-import androidx.annotation.StyleRes
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dev.sasikanth.colorsheet.utils.Theme
-import dev.sasikanth.colorsheet.utils.px
 import dev.sasikanth.colorsheet.utils.resolveColor
 import kotlinx.android.synthetic.main.color_sheet.colorSheetClose
 import kotlinx.android.synthetic.main.color_sheet.colorSheetList
-import kotlinx.android.synthetic.main.color_sheet.sheetTitle
 import com.google.android.material.R as materialR
 
 /**
@@ -133,9 +129,18 @@ class ColorSheet : BottomSheetDialogFragment() {
      *
      * @param radius: Takes a float value
      */
-    fun cornerRadius(radius: Int): ColorSheet {
-        this.sheetCorners = radius.toFloat().px
+    fun cornerRadius(radius: Float): ColorSheet {
+        this.sheetCorners = radius
         return this
+    }
+
+    /**
+     * Set corner radius of sheet top left and right corners.
+     *
+     * @param radius: Takes a float value
+     */
+    fun cornerRadius(radius: Int): ColorSheet {
+        return cornerRadius(radius.toFloat())
     }
 
     /**
