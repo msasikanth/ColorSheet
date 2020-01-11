@@ -27,14 +27,14 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dev.sasikanth.colorsheet.utils.Theme
 import dev.sasikanth.colorsheet.utils.resolveColor
-import kotlinx.android.synthetic.main.color_sheet.colorSheetClose
-import kotlinx.android.synthetic.main.color_sheet.colorSheetList
+import kotlinx.android.synthetic.main.color_sheet.*
 import com.google.android.material.R as materialR
 
 /**
@@ -55,6 +55,7 @@ class ColorSheet : BottomSheetDialogFragment() {
 
     private var sheetCorners: Float = 0f
     private var colorAdapter: ColorAdapter? = null
+    private var isHeaderVisible: Boolean = true
 
     override fun getTheme(): Int {
         return Theme.inferTheme(requireContext()).styleRes
@@ -117,6 +118,7 @@ class ColorSheet : BottomSheetDialogFragment() {
         colorSheetClose.setOnClickListener {
             dismiss()
         }
+        colorSheetHeader.isVisible = isHeaderVisible
     }
 
     override fun onDestroyView() {
@@ -149,15 +151,18 @@ class ColorSheet : BottomSheetDialogFragment() {
      * @param colors: Array of colors to show in color picker
      * @param selectedColor: Pass in the selected color from colors list, default value is null. You can pass [ColorSheet.NO_COLOR]
      * to select noColorOption in the sheet.
-     * @param noColorOption: Gives a option to set the [selectedColor] to [NO_COLOR]
+     * @param isHeaderVisible: Gives an option not to display the title and close action
+     * @param noColorOption: Gives an option to set the [selectedColor] to [NO_COLOR]
      * @param listener: [ColorPickerListener]
      */
     fun colorPicker(
         colors: IntArray,
         @ColorInt selectedColor: Int? = null,
         noColorOption: Boolean = false,
+        isHeaderVisible: Boolean = true,
         listener: ColorPickerListener
     ): ColorSheet {
+        this.isHeaderVisible = isHeaderVisible
         colorAdapter = ColorAdapter(this, colors, selectedColor, noColorOption, listener)
         return this
     }
