@@ -35,7 +35,6 @@ import dev.sasikanth.colorsheet.utils.Theme
 import dev.sasikanth.colorsheet.utils.resolveColor
 import kotlinx.android.synthetic.main.color_sheet.colorSheetClose
 import kotlinx.android.synthetic.main.color_sheet.colorSheetList
-import com.google.android.material.R as materialR
 
 /**
  * Listener for color picker
@@ -75,10 +74,8 @@ class ColorSheet : BottomSheetDialogFragment() {
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val dialog = dialog as BottomSheetDialog?
-                val bottomSheet =
-                    dialog?.findViewById<FrameLayout>(materialR.id.design_bottom_sheet)
-                val behavior = BottomSheetBehavior.from(bottomSheet)
+                val dialog = dialog as BottomSheetDialog? ?: return
+                val behavior = dialog.behavior
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 behavior.peekHeight = 0
                 behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
